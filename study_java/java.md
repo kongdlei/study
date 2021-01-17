@@ -574,8 +574,6 @@ public class FirstSample{
 
   自由格式文本的第一句应该是一个概要性的句子。javadoc实用程序自动地将这些句子抽取出来形成概要页。
 
-  在自由格式文本中，可以使用HTML修饰符，例如，用于强调的<em>...</em>、用于着重强调的<strong>...</strong>以及包含图像的<img...>等。不过，一定不要使用<h1>或<hr>，因为它们会与文,档的格式产生冲突。若要键入等宽代码，需使用{@code...}而不是<code>...</code>——这样一来，就不用操心对代码中的字符转义了。
-
   如果文档中有到其他文件的链接，例如，图像文件（用户界面的组件的图表或图像等），就应该将这些文件放到子目录doc-files中。javadoc实用程序将从源目录拷贝这些目录及其中的文件到文档目录中。在链接中需要使用doc-files目录，例如：<img src=“doc-files/uml.png”alt=“UML diagram”>。
 
   ## 方法注释
@@ -595,7 +593,7 @@ public class FirstSample{
   这个标记将添加一个注释，用于表示这个方法有可能抛出异常。有关异常的详细内容将在第10章中讨论。
 
   ```java
-  /**
+/**
   *Raise the salary of an employee
   *@param byPercent the percent by which to raise the salary (e.g. 10 means 10%)
   *@return the amount of the raise
@@ -606,7 +604,7 @@ public class FirstSample{
       return raise;
   }
   ```
-
+  
   ## 通用注释
 
   下面的标记可以用在类文档的注释中。
@@ -634,11 +632,11 @@ public class FirstSample{
   就是说，用其他的类代替多个相关的基本类型的使用。这样会使类更加易于理解且易于修改。例如，用一个称为Address的新的类替换一个Customer类中以下的实例域：
 
   ```java
-  private String street;
+private String street;
   private String city;
   private String state;
   ```
-
+  
   
 
   4.不是所有的域都需要独立的域访问器和域更改器
@@ -664,35 +662,35 @@ public class FirstSample{
   覆盖方法，也称对方法的重写。
 
   ```java
-  public double getSalary(){
+public double getSalary(){
       return salary + bouns;	//doesn't work
   }
   ```
-
+  
   这个方法并不能运行。这是因==为**Manager类的getSalary方法不能够直接地访问超类的私有域**==。也就是说，尽管每个Manager对象都拥有一个名为salary的域，但在Manager类的getSalary方法中并不能够直接地访问salary域。**==只有Employee类的方法才能够访问私有部分==**。如果Manager类的方法一定要访问私有域，就必须借助于公有的接口==，Employee类中的公有方法getSalary正是这样一个接口==。
 
   ```java
-  public double getSalary(){
+public double getSalary(){
       double baseSalary = getSalary();
       return baseSalary + bouns;	// still doesn't work
   }
   ```
-
+  
   上面这段代码仍然不能运行。问题出现在调用getSalary的语句上，这是因为Manager类也有一个getSalary方法（就是正在实现的这个方法），所以这条语句将会导致无限次地调用自己，直到整个程序崩溃为止。
 
   这里需要指出：我们希望调用超类Employee中的getSalary方法，而不是当前类的这个方法。为此，可以使用特定的关键字super解决这个问题：
 
   ```java
-  super.getSalary()
+super.getSalary()
   ```
-
+  
   ```java
-  public double getSalary(){
+public double getSalary(){
       double baseSalary = super.getSalary();
       return baseSalary + bouns;	//  work
   }
   ```
-
+  
   >有些人认为super与this引用是类似的概念，实际上，这样比较并不太恰当。这是因为super不是一个对象的引用，不能将super赋给另一个对象变量，它只是一个指示编译器调用超类方法的特殊关键字。
 
   
